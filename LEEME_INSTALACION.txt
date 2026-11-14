@@ -1,0 +1,53 @@
+CT CAMPEADOR · CONTROL DE PISTAS V1.0
+===================================
+
+QUÉ ES
+PWA independiente para gestionar EXCLUSIVAMENTE los cobros de pistas de la liga CT Campeador.
+Usa la API de producción existente y lee/escribe en los mismos registros de pagos de la liga.
+No se debe copiar ni migrar la base de datos.
+
+REQUISITOS
+- El Worker ct-campeador-api debe estar publicado con la versión V2.6.13 o posterior,
+  que incluye listCourtPayments y setCourtPayment.
+- El usuario debe ser ADMIN de la liga y usar su nombre y PIN actuales.
+- La PWA debe servirse desde https://ligasdetenis.github.io/ (cualquier repositorio
+  GitHub Pages bajo esta cuenta funciona); el Worker actual restringe el origen a ese dominio.
+- No abras index.html como archivo local: es para un sitio HTTPS.
+
+INSTALACIÓN PASO A PASO
+1. En GitHub, dentro de la cuenta ligasdetenis, crea un nuevo repositorio público:
+   ct-campeador-control-pistas
+2. Sube TODOS los archivos y carpetas del ZIP a la RAÍZ del repositorio:
+   index.html, app.js, manifest.webmanifest, sw.js, carpeta icons y LEEME_INSTALACION.txt.
+3. En Settings > Pages, selecciona Deploy from a branch, main y /(root); guarda.
+4. Abre, cuando GitHub Pages termine de publicar:
+   https://ligasdetenis.github.io/ct-campeador-control-pistas/
+5. Inicia sesión con el nombre y PIN del administrador de CT Campeador.
+6. Añade la página a la pantalla de inicio. En navegadores compatibles aparecerá
+   el botón "Instalar app". En iPhone: Compartir > Añadir a pantalla de inicio.
+
+FUNCIONES
+- Consulta en vivo de reservas cobrables, canceladas y reprogramadas.
+- Filtros de mes, pista, jugador y estado.
+- Cambiar pagos individuales de Pendiente a Abonado y viceversa (con confirmación).
+- Indicadores de cobros y reservas.
+- Exportación CSV de la vista filtrada (compatible con Excel).
+- Informe imprimible A4 vertical.
+- Importe estimativo opcional por jugador: solo visual, NO se guarda en la API.
+
+CRITERIOS DE COBRO
+- 'active' y 'completed': cobrables.
+- 'cancelled', 'replaced' y estados desconocidos: sin cargo, solo históricos.
+- Los registros que el servidor no haya podido distinguir automáticamente deben
+  revisarse en la liga; esta PWA no inventa cargos ni corrige datos antiguos.
+
+SEGURIDAD Y LÍMITES
+- Solo el backend autoriza realmente las operaciones de pago con rol admin.
+- El token de sesión solo vive en la memoria de la pestaña; cerrar obliga a entrar otra vez.
+- PIN, token y los pagos NO se guardan en localStorage, IndexedDB ni en la caché de la PWA.
+- El service worker solo almacena los archivos estáticos de la app, no respuestas de la API.
+- La conexión a internet es obligatoria para leer o modificar cobros.
+- NO contiene pasarela para cobrar tarjetas/Bizum: registra cobros realizados fuera de la app.
+- Para cobros con importes reales en servidor se necesitaría ampliar la API.
+
+NO ES NECESARIO MODIFICAR WRANGLER NI LA API SI YA ESTÁ EN V2.6.13.
