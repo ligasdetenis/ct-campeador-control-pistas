@@ -1,7 +1,232 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102d2b"><meta name="description" content="Control económico de las pistas de la liga CT Campeador"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icons/apple-touch-icon.png"><title>Control de Pistas · CT Campeador</title><style>
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:#162d2a;background:#f1f5f2;font-size:14px}*{box-sizing:border-box}body{margin:0;min-height:100dvh}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:wait}header{background:#102d2b;color:white;padding:22px max(16px,calc((100vw - 1120px)/2));display:flex;justify-content:space-between;gap:16px;align-items:center}header h1{font-size:21px;letter-spacing:-.6px;margin:2px 0}header p{color:#b8d3c9;margin:2px 0;font-size:12px}.brand{display:flex;gap:13px;align-items:center}.mark{border-radius:16px;background:#dbf5c3;color:#183e34;width:48px;height:48px;display:grid;place-items:center;font-size:25px}main{max-width:1120px;margin:0 auto;padding:20px 16px 110px}.surface{background:white;border:1px solid #dae5df;border-radius:19px;box-shadow:0 5px 22px #1743380b;padding:18px}.login{width:min(100%,435px);margin:clamp(24px,7vh,90px) auto}.login h2{font-size:23px;margin:0 0 8px}.muted{color:#71817b}.hint{font-size:12px;line-height:1.5}.field{display:grid;gap:7px;margin:16px 0}.field label{font-weight:750}.input,select{border:1px solid #cbd9d1;padding:12px;border-radius:11px;min-height:44px;background:#fff;width:100%;color:#142b29}.input:focus,select:focus{outline:3px solid #d5eccb;border-color:#2d7658}.btn{border:0;background:#176949;color:#fff;padding:12px 16px;border-radius:12px;font-weight:750;min-height:43px}.btn.secondary{background:#eaf2ee;color:#1d4b3a}.btn.ghost{background:transparent;color:inherit;border:1px solid currentColor;padding:9px 12px}.btn.danger{background:#fff0ef;color:#a13327}.btn.small{padding:7px 11px;min-height:34px;font-size:12px}.btn:focus-visible{outline:3px solid #9ed9ad}.hidden{display:none!important}.topactions,.actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.topactions{justify-content:flex-end}.status{font-size:12px;padding:8px 11px;border-radius:12px;background:#eaf2ee;color:#315946}.status.error{background:#fff0ed;color:#a23930}.banner{padding:14px 16px;background:#fff6db;border:1px solid #f1dd9d;border-radius:13px;color:#795c1b;line-height:1.45;margin-bottom:16px}.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 15px}.heading h2{font-size:23px;margin:0}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:17px}.metric{padding:18px;background:#fff;border:1px solid #dae5df;border-radius:17px}.metric small{color:#687c73;font-weight:700}.metric strong{display:block;font-size:27px;margin-top:7px;letter-spacing:-.8px}.metric:nth-child(2) strong{color:#b53f34}.metric:nth-child(3) strong{color:#176949}.tabs{display:flex;gap:8px;margin-bottom:15px;overflow-x:auto;padding:3px 0}.tab{white-space:nowrap;border:1px solid #d3e0d8;background:white;color:#3f6455;border-radius:12px;padding:12px 16px;font-weight:750}.tab.active{background:#144f39;border-color:#144f39;color:#fff}.filters{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr auto;align-items:end;gap:10px;margin-bottom:14px}.filters .field{margin:0}.filters label{font-size:12px}.list{display:grid;gap:10px}.entry{display:flex;gap:10px;justify-content:space-between;align-items:center;border:1px solid #e0e9e4;border-radius:15px;padding:15px;background:white}.entry-main{min-width:0}.entry-title{font-weight:800;font-size:15px;margin:3px 0}.entry-info{color:#62766c;font-size:12px;line-height:1.6}.players{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.player{display:flex;align-items:center;gap:9px;border:1px solid #e3ebe5;border-radius:10px;padding:7px 9px}.player b{font-size:12px}.pill{border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;background:#fdefec;color:#a83730}.pill.paid{background:#e1f3e7;color:#187145}.pill.nocharge{background:#e9ecef;color:#4e5c66}.item-actions{display:grid;gap:9px;justify-items:end;min-width:112px}.empty{text-align:center;padding:45px 20px;color:#698074}.empty strong{display:block;font-size:18px;color:#27483a;margin-bottom:6px}footer{position:fixed;bottom:0;left:0;right:0;background:#ffffffea;backdrop-filter:blur(13px);border-top:1px solid #d7e3dc;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:20px;color:#668075;font-size:11px}.only-screen{}.print-head{display:none}.record-total{font-size:12px;color:#63776e}.modal{position:fixed;inset:0;z-index:30;background:#10241d99;display:grid;place-items:center;padding:20px}.modal .surface{width:min(430px,100%);box-shadow:0 20px 80px #071a1450}.modal h3{margin:0 0 12px}#notice{margin:0 0 16px}.priceinfo{font-size:12px;color:#697d71;margin-top:10px}#installBtn{display:none}@media(max-width:760px){header{padding:17px 15px}.brand .mark{height:44px;width:44px}header h1{font-size:18px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:13px}.metric strong{font-size:24px}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}.entry{align-items:stretch;flex-direction:column}.item-actions{display:flex;align-items:center;justify-content:space-between}.topactions .ghost{font-size:11px}footer{gap:10px;font-size:10px}}@media print{@page{size:A4 portrait;margin:13mm}body{background:#fff;color:#111}header,.only-screen,footer,.tabs,.filters,.item-actions,.player button,.modal,#loginPage{display:none!important}main{padding:0}.surface,.entry{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.print-head{display:block}.metrics{grid-template-columns:repeat(4,1fr)}.metric{padding:8px}.metric strong{font-size:17px}#appPage{display:block!important}.entry{padding:9px}.pill{print-color-adjust:exact}}
-</style></head><body><header><div class="brand"><div class="mark">🎾</div><div><p>CT CAMPEADOR · LIGA</p><h1>Control de Pistas</h1></div></div><div class="topactions"><span id="connection" class="status only-screen">Sin sesión</span><button id="logoutBtn" class="btn ghost hidden only-screen">Salir</button></div></header>
-<main><section id="loginPage" class="surface login"><h2>Acceso de administración</h2><p class="muted">Utiliza tu usuario y PIN de administrador de CT Campeador. Los datos de cobro permanecen en Cloudflare.</p><form id="loginForm"><div class="field"><label for="username">Nombre de administrador</label><input class="input" id="username" autocomplete="username" required maxlength="70" placeholder="Tu nombre en CT Campeador"></div><div class="field"><label for="pin">PIN</label><input class="input" id="pin" type="password" inputmode="numeric" pattern="[0-9]{4}|[0-9]{6}" autocomplete="current-password" required placeholder="4 o 6 cifras"></div><button class="btn" style="width:100%" id="loginButton">Entrar al control de pistas</button></form><p id="loginError" class="status error hidden" role="alert" style="margin-top:14px"></p><p class="hint muted">Solo pueden entrar las cuentas con permisos de administración. No se almacenan PIN ni datos de pagos en este dispositivo.</p></section>
-<section id="appPage" class="hidden"><div class="heading"><div><p class="muted" style="font-weight:800;letter-spacing:.09em;font-size:11px;margin:0 0 5px">PANEL ECONÓMICO</p><h2>Resumen de pistas</h2><span id="welcome" class="muted"></span></div><div class="actions only-screen"><button id="installBtn" class="btn secondary small">Instalar app</button><button id="refreshBtn" class="btn secondary small">↻ Actualizar</button><button id="exportBtn" class="btn secondary small">↓ CSV</button><button id="printBtn" class="btn secondary small">Imprimir A4</button></div></div><div id="notice" class="hidden banner"></div><div class="print-head"><h2>CT Campeador · Informe de pagos de pistas</h2><p id="printDate"></p></div><div class="metrics"><div class="metric"><small>Reservas cobrables</small><strong id="mBookings">—</strong></div><div class="metric"><small>Pagos pendientes</small><strong id="mPending">—</strong></div><div class="metric"><small>Pagos registrados</small><strong id="mPaid">—</strong></div><div class="metric"><small>Sin cargo</small><strong id="mExcluded">—</strong></div></div><div class="surface"><div class="tabs only-screen"><button class="tab active" data-tab="pending">Pendientes</button><button class="tab" data-tab="paid">Abonados</button><button class="tab" data-tab="all">Todos los cobros</button><button class="tab" data-tab="archive">Canceladas · Sin cargo</button></div><div class="filters only-screen"><div class="field wide"><label for="search">Buscar jugador, pista o partido</label><input id="search" class="input" placeholder="Nombre, pista, fecha..."></div><div class="field"><label for="month">Mes</label><select id="month"><option value="all">Todos</option></select></div><div class="field"><label for="court">Pista</label><select id="court"><option value="all">Todas</option></select></div><div class="field"><label for="price">Importe por jugador (€)</label><input type="number" class="input" id="price" min="0" step="0.5" value="0" title="Solo para estimaciones e informes; no modifica el importe de los registros en Cloudflare"></div><button id="resetBtn" class="btn secondary small" style="margin-bottom:4px">Limpiar</button></div><div class="heading"><div><strong id="listTitle">Pagos pendientes</strong><p class="priceinfo">Los importes son una estimación local; CT Campeador registra estados de pago, no cantidades.</p></div><span id="recordTotal" class="record-total"></span></div><div id="list" class="list"><div class="empty">Inicia sesión para consultar pagos.</div></div></div></section></main>
-<div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"><div class="surface"><h3 id="confirmTitle">Confirmar cambio</h3><p id="confirmText"></p><div class="actions" style="justify-content:flex-end;margin-top:18px"><button class="btn secondary" id="cancelConfirm">Cancelar</button><button class="btn" id="acceptConfirm">Confirmar</button></div></div></div><footer><span>🔒 Acceso de administrador</span><span>·</span><span>☁️ Datos compartidos con la liga</span><span>·</span><span>V1.0</span></footer>
-<script src="./app.js" defer></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f3d33">
+  <meta name="description" content="PWA profesional para el control de cobros de pistas de la liga CT Campeador">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <title>CT Campeador · Control de Pistas</title>
+  <style>
+    :root{
+      --bg:#eef4f1;--surface:#ffffff;--surface-2:#f7faf8;--ink:#17322c;--muted:#60746c;--line:#dfe8e2;
+      --brand:#0f3d33;--brand-2:#185845;--accent:#b7db63;--danger:#b54335;--ok:#198655;--warn:#aa6d14;
+      --shadow:0 10px 28px rgba(18,49,39,.08);--radius:18px;--radius-sm:12px;
+      font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#eff5f1 0%,#f6faf7 100%);
+    }
+    *{box-sizing:border-box} html,body{margin:0} body{min-height:100dvh}
+    button,input,select{font:inherit} button{cursor:pointer} button:disabled{opacity:.55;cursor:wait}
+    .appHeader{background:linear-gradient(140deg,var(--brand) 0%,#0b2f28 55%,#154b3d 100%);color:#fff;padding:22px max(18px,calc((100vw - 1180px)/2));position:relative;overflow:hidden}
+    .appHeader:before,.appHeader:after{content:"";position:absolute;border-radius:50%;opacity:.11;background:#fff}
+    .appHeader:before{width:230px;height:230px;right:-70px;top:-80px}.appHeader:after{width:160px;height:160px;right:130px;bottom:-85px}
+    .headerRow{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:14px}.brandMark{width:58px;height:58px;border-radius:18px;background:linear-gradient(180deg,#d9f1ae,#b8dc63);display:grid;place-items:center;color:#154438;font-size:29px;box-shadow:inset 0 1px 0 rgba(255,255,255,.65)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.11);backdrop-filter:blur(10px);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#dceade}
+    .brand h1{margin:7px 0 2px;font-size:28px;letter-spacing:-.9px;line-height:1.05}.brand p{margin:0;color:#c6ddd4}
+    .sessionBox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sessionChip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.12);color:#dceade;font-size:12px;font-weight:700}
+    .page{max-width:1180px;margin:0 auto;padding:22px 16px 110px}
+    .card,.metric,.loginCard,.record{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hidden{display:none!important}.muted{color:var(--muted)}
+    .btn{border:0;border-radius:12px;background:linear-gradient(180deg,var(--brand-2),var(--brand));color:#fff;font-weight:800;padding:11px 15px;min-height:44px;box-shadow:0 6px 16px rgba(24,88,69,.18)}
+    .btn:hover{filter:brightness(1.03)} .btn.secondary{background:#edf4f0;color:#204c40;box-shadow:none;border:1px solid #dbe7e1}.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);box-shadow:none}.btn.small{min-height:36px;padding:8px 11px;font-size:12px;border-radius:11px}
+    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.notice{padding:12px 14px;border-radius:14px;margin:0 0 16px;font-size:13px;border:1px solid #ecd9a6;background:#fff6dd;color:#805f18}.notice.error{background:#fff0ed;border-color:#efcbc4;color:#a03529}
+    .loginWrap{min-height:calc(100dvh - 160px);display:grid;place-items:center}.loginCard{width:min(100%,460px);padding:28px 26px;background:linear-gradient(180deg,#fff 0%,#f8fbf9 100%)}
+    .loginTop{display:flex;align-items:center;gap:14px;margin-bottom:10px}.loginLogo{width:58px;height:58px;border-radius:18px;background:linear-gradient(180deg,#153f35,#0e2f29);display:grid;place-items:center;color:#d7eeab;font-size:26px}
+    .loginCard h2{margin:4px 0 3px;font-size:27px;letter-spacing:-.8px}.loginCard p{margin:0 0 10px}.inputGroup{margin:16px 0 0}.label{display:block;font-size:12px;font-weight:900;color:#4d665c;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+    .input,select{width:100%;min-height:48px;border-radius:14px;border:1px solid #c9d7cf;background:#fff;padding:12px 14px;color:var(--ink)} .input:focus,select:focus{outline:3px solid #dcefc2;border-color:#a9c57a}
+    .loginHelp{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#63776d}.safeLine{display:flex;align-items:center;gap:8px}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-bottom:16px}
+    .heroPanel{padding:22px 22px 20px;background:linear-gradient(160deg,#ffffff 0%,#f7faf8 100%)}
+    .heroPanel h2{margin:0 0 6px;font-size:25px;letter-spacing:-.7px}.heroPanel p{margin:0;color:var(--muted)}
+    .legend{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.legend span{padding:8px 10px;border-radius:999px;background:#eef4f1;border:1px solid #dce8e1;color:#486258;font-size:12px;font-weight:700}
+    .summary{padding:18px}.summaryTitle{font-size:12px;font-weight:900;color:#567268;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+    .summary ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.summary li{display:flex;justify-content:space-between;gap:10px;font-size:13px}.summary b{font-size:18px;letter-spacing:-.4px}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+    .metric{padding:16px;position:relative;overflow:hidden}.metric::after{content:"";position:absolute;right:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:#eef4f1}
+    .metric small{display:block;color:#677b73;font-weight:800;font-size:11px;letter-spacing:.04em;text-transform:uppercase;position:relative;z-index:1}.metric strong{display:block;margin-top:10px;font-size:30px;letter-spacing:-1px;line-height:1.05;position:relative;z-index:1}
+    .metric.pending strong{color:var(--danger)} .metric.paid strong{color:var(--ok)} .metric.excluded strong{color:#66776f}
+    .panel{padding:16px}.panelTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.panelTop h3{margin:0;font-size:21px;letter-spacing:-.5px}.panelTop p{margin:4px 0 0;color:var(--muted)}
+    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:6px;margin-bottom:10px}.tab{white-space:nowrap;padding:10px 14px;border-radius:12px;border:1px solid #d8e4dd;background:#f2f6f4;color:#395d51;font-weight:900}.tab.active{background:linear-gradient(180deg,var(--brand-2),var(--brand));color:#fff;border-color:transparent}
+    .filters{display:grid;grid-template-columns:2.15fr 1fr 1fr 1fr;gap:10px;margin:10px 0 8px}.filterBox label{display:block;font-size:11px;font-weight:900;color:#61756d;letter-spacing:.04em;text-transform:uppercase;margin:0 0 5px}
+    .subInfo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 2px 4px}.subInfo .muted{font-size:12px}.count{font-size:12px;font-weight:800;color:#5b7268}
+    .list{display:grid;gap:12px;margin-top:10px}
+    .record{padding:15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start}.recordHead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}.recordMeta{font-size:12px;color:#60756c;font-weight:700}.recordTitle{font-size:18px;line-height:1.22;font-weight:900;letter-spacing:-.4px;margin:0}.recordTitle .vs{font-weight:700;color:#80938b}
+    .recordReason{margin-top:8px;padding:9px 11px;border-radius:12px;background:#f1f6f3;border:1px solid #e1ebe5;color:#4f6b60;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+    .playerRow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;border:1px solid #e5ece7;border-radius:14px;background:#fbfdfc;margin-top:10px}
+    .playerMain{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#e8f4c7,#d3e8a0);color:#29513f;font-weight:900;flex:0 0 auto}.playerText b{display:block;font-size:13px}.playerText span{display:block;font-size:11px;color:#6c8077}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.02em}.chip.pending{background:#fae8e4;color:#a13f32}.chip.paid{background:#e5f5e8;color:#1a764e}.chip.neutral{background:#edf1ef;color:#61766d}
+    .recordSide{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:160px}.stateBadge{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#f0f4f1;border:1px solid #dfe8e2;color:#526a60;font-size:11px;font-weight:900}.stateBadge.paid{background:#e8f5eb;color:#1b764f;border-color:#d0ead8}.stateBadge.pending{background:#fbebe7;color:#a04031;border-color:#f0d7d1}
+    .empty{padding:58px 20px;text-align:center;border:1px dashed #cfdbd4;border-radius:18px;background:#f9fbfa;color:#6a7e76}.empty h4{margin:0 0 6px;font-size:18px}.empty p{margin:0 auto;max-width:500px}
+    .footer{padding:18px;text-align:center;color:#6d8177;font-size:11px}.printOnly{display:none}
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(8,22,18,.62);backdrop-filter:blur(4px);padding:18px;z-index:60}.modalCard{width:min(100%,430px);padding:20px;background:#fff;border:1px solid #dde7e0;border-radius:22px;box-shadow:0 18px 45px rgba(11,35,28,.18)}.modalCard h3{margin:0 0 6px;font-size:22px;letter-spacing:-.5px}.modalCard p{margin:0 0 16px;color:#5f746b}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}.record{grid-template-columns:1fr}.recordSide{align-items:flex-start;min-width:0}.brand h1{font-size:24px}}
+    @media (max-width:620px){.page{padding:16px 12px 96px}.appHeader{padding:16px 12px}.brandMark{width:52px;height:52px;font-size:27px}.brand h1{font-size:22px}.heroPanel,.summary,.panel,.loginCard{padding:16px}.metrics{grid-template-columns:1fr 1fr;gap:10px}.metric strong{font-size:24px}.filters{grid-template-columns:1fr}.recordTitle{font-size:16px}.playerRow{padding:10px}.toolbar{width:100%}.toolbar .btn{flex:1 1 auto;justify-content:center}.sessionBox{width:100%;justify-content:space-between}}
+    @media print{@page{size:A4 portrait;margin:12mm}body{background:#fff}.appHeader,.noPrint,.modal,.loginWrap,.footer{display:none!important}.page{max-width:none;padding:0}.printOnly{display:block;margin-bottom:10px}.card,.metric,.record{box-shadow:none;border:1px solid #d8ddd9}.hero,.panel{page-break-inside:avoid}.metrics{gap:8px}.metric{padding:10px}.metric strong{font-size:20px}.record{padding:10px;gap:8px;break-inside:avoid}.playerRow{padding:7px 8px;margin-top:7px}.stateBadge,.chip{print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <header class="appHeader">
+    <div class="headerRow">
+      <div class="brand">
+        <div class="brandMark">🎾</div>
+        <div>
+          <div class="eyebrow">CT Campeador · Liga oficial</div>
+          <h1>Control de Pistas</h1>
+          <p>Panel económico de cobros para partidos ya disputados</p>
+        </div>
+      </div>
+      <div class="sessionBox">
+        <span id="status" class="sessionChip">Acceso restringido</span>
+        <button id="logout" class="btn ghost small hidden noPrint">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="loginPage" class="loginWrap">
+      <div class="loginCard">
+        <div class="loginTop">
+          <div class="loginLogo">💳</div>
+          <div>
+            <div class="eyebrow" style="background:#eff4f1;color:#35574b">Acceso de administración</div>
+            <h2>Entrar con PIN</h2>
+          </div>
+        </div>
+        <p class="muted">Introduce exclusivamente tu <strong>PIN de administrador</strong>. La verificación se realiza en Cloudflare y esta PWA no guarda el PIN.</p>
+        <form id="loginForm">
+          <div class="inputGroup">
+            <label class="label" for="pin">PIN de administración</label>
+            <input id="pin" class="input" type="password" inputmode="numeric" pattern="[0-9]{4}|[0-9]{6}" maxlength="6" autocomplete="off" placeholder="4 o 6 cifras" required>
+          </div>
+          <button class="btn" id="loginBtn" type="submit" style="width:100%;margin-top:16px">Entrar en Control de Pistas</button>
+        </form>
+        <div id="loginError" class="notice error hidden" role="alert" style="margin-top:14px"></div>
+        <div class="loginHelp">
+          <span class="safeLine">🔒 Sesión segura de administrador</span>
+          <span class="safeLine">☁️ Datos compartidos con CT Campeador</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="app" class="hidden">
+      <div id="notice" class="notice hidden" role="status"></div>
+
+      <section class="hero">
+        <div class="card heroPanel">
+          <div class="eyebrow" style="background:#edf4f0;color:#37594d">Vista profesional de cobros</div>
+          <h2>Pagos de pistas disputadas</h2>
+          <p>Solo aparecen partidos con <strong>resultado confirmado</strong> y con la <strong>franja horaria ya finalizada</strong>. No se muestran pistas futuras, reservas canceladas ni partidos aún no disputados.</p>
+          <div class="legend">
+            <span>✅ Partidos realmente jugados</span>
+            <span>💶 Cobros por jugador</span>
+            <span>📄 Exportación CSV y A4</span>
+          </div>
+        </div>
+        <div class="card summary">
+          <div class="summaryTitle">Sesión actual</div>
+          <ul>
+            <li><span>Responsable</span><b id="welcome">—</b></li>
+            <li><span>Origen de los datos</span><strong>Cloudflare · Producción</strong></li>
+            <li><span>Actualización</span><strong id="updatedAt">Pendiente</strong></li>
+            <li><span>Instalación</span><strong>PWA independiente</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <article class="metric">
+          <small>Reservas cobrables</small>
+          <strong id="nBookings">—</strong>
+        </article>
+        <article class="metric pending">
+          <small>Pagos pendientes</small>
+          <strong id="nPending">—</strong>
+        </article>
+        <article class="metric paid">
+          <small>Pagos abonados</small>
+          <strong id="nPaid">—</strong>
+        </article>
+        <article class="metric excluded">
+          <small>Excluidos del cobro</small>
+          <strong id="nExcluded">—</strong>
+        </article>
+      </section>
+
+      <section class="card panel">
+        <div class="panelTop">
+          <div>
+            <h3>Gestión de cobros</h3>
+            <p>Vista filtrada de reservas cobrables de la liga CT Campeador.</p>
+          </div>
+          <div class="toolbar noPrint">
+            <button id="refresh" class="btn secondary small">↻ Actualizar</button>
+            <button id="install" class="btn secondary small">Instalar app</button>
+            <button id="csv" class="btn secondary small">Exportar CSV</button>
+            <button id="print" class="btn secondary small">Imprimir A4</button>
+          </div>
+        </div>
+
+        <div class="tabs noPrint">
+          <button class="tab active" data-tab="pending">Pendientes</button>
+          <button class="tab" data-tab="paid">Abonados</button>
+          <button class="tab" data-tab="all">Todos los cobros</button>
+        </div>
+
+        <div class="filters noPrint">
+          <div class="filterBox wide">
+            <label for="search">Buscar jugador, pista o fecha</label>
+            <input id="search" class="input" autocomplete="off" placeholder="Ejemplo: Jorge, Pista 1, noviembre...">
+          </div>
+          <div class="filterBox">
+            <label for="month">Mes</label>
+            <select id="month"><option value="all">Todos</option></select>
+          </div>
+          <div class="filterBox">
+            <label for="court">Pista</label>
+            <select id="court"><option value="all">Todas</option></select>
+          </div>
+          <div class="filterBox">
+            <label for="price">€ orientativos / jugador</label>
+            <input id="price" class="input" type="number" min="0" step="0.5" value="0">
+          </div>
+        </div>
+
+        <div class="subInfo">
+          <div class="muted">
+            <strong id="listTitle">Pagos pendientes</strong> · Solo partidos disputados y confirmados.
+          </div>
+          <div id="total" class="count">—</div>
+        </div>
+
+        <div class="printOnly">
+          <h2 style="margin:0 0 4px">CT Campeador · Control de Pistas</h2>
+          <div id="printedAt" class="muted"></div>
+        </div>
+
+        <div id="list" class="list">
+          <div class="empty">
+            <h4>Cargando datos…</h4>
+            <p>En unos segundos aparecerán aquí los partidos disputados con control de cobro.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="confirm" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modalCard">
+      <h3 id="modalTitle">Confirmar pago</h3>
+      <p id="modalText"></p>
+      <div class="toolbar" style="justify-content:flex-end">
+        <button id="cancel" class="btn secondary">Cancelar</button>
+        <button id="accept" class="btn">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">CT Campeador · Control de Pistas · V1.2 · Diseño profesional</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
