@@ -1,18 +1,23 @@
-CT CAMPEADOR · CONTROL DE PISTAS V1.2
+CT CAMPEADOR · CONTROL DE PISTAS V1.3
 ====================================
 
-MEJORAS DE ESTA VERSIÓN
-- Rediseño visual más profesional y más limpio.
-- Acceso únicamente mediante PIN de administrador.
-- Solo aparecen partidos realmente disputados: reserva finalizada + resultado confirmado.
-- Fichas de cobro más claras, con mejor jerarquía visual.
-- Exportación CSV e impresión A4 vertical.
+CAMBIO PRINCIPAL
+- Una reserva aparece en el control de pagos cuando su franja horaria ya ha terminado,
+  AUNQUE todavía no se haya comunicado o confirmado el resultado del partido.
+- Siguen excluidas las reservas futuras, canceladas y reprogramadas, así como
+  partidos marcados expresamente como NO DISPUTADOS.
+- Las reservas cuyo resultado está pendiente muestran la etiqueta correspondiente.
+- Se mantiene la gestión compartida de cobros mediante Cloudflare.
+
+IMPORTANTE: el fin del horario de la reserva NO acredita por sí solo que se haya
+jugado. Si el partido se canceló o no llegó a disputarse, debe constar en el
+sistema para que se excluya; no se aplican penalizaciones por cancelación.
 
 INSTALACIÓN
-1. Sustituye TODOS los archivos de la PWA anterior por los de esta versión.
-2. Mantén la carpeta icons.
-3. Publica en GitHub Pages en la raíz del repositorio.
-4. Abre la PWA y actualiza/reinstala si el navegador conserva caché antigua.
+1. Descomprime el ZIP.
+2. Sustituye TODOS los archivos de la PWA de pagos (incluida la carpeta icons).
+3. Publica en GitHub Pages. El sw.js tiene nueva versión para renovar la caché.
+4. Comprueba en el móvil una reserva de hoy ya finalizada sin resultado confirmado,
+   una reserva futura y una cancelada.
 
-NOTA
-No hay que tocar Cloudflare ni la API si ya está funcionando la V1.1.
+NO CAMBIA Cloudflare, Worker ni la liga principal.

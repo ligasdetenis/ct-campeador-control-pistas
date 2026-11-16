@@ -1,5 +1,5 @@
 'use strict';
-const KEY='ct-campeador-control-pistas-v1-1';
+const KEY='ct-campeador-control-pistas-v1-3';
 const SHELL=['./','./index.html','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(KEY).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('ct-campeador-control-pistas-')&&k!==KEY).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

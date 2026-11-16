@@ -51,9 +51,10 @@ function eligibility(r){
   if(!['active','completed'].includes(r.status)) return {ok:false,reason:'Estado histórico no cobrable'};
   const end=timestampEnd(b);
   if(!Number.isFinite(end)||end>Date.now()) return {ok:false,reason:'Pista futura o franja todavía no terminada'};
-  if(!res||res.status!=='confirmed') return {ok:false,reason:'Partido sin resultado confirmado'};
-  if(res.type==='not_played') return {ok:false,reason:'Partido no disputado'};
-  return {ok:true,reason:'Partido disputado y confirmado'};
+  // El cobro de la pista no depende de que se haya publicado o confirmado el tanteo.
+  // Se excluyen las reservas expresamente anuladas y los partidos marcados como no disputados.
+  if(res?.type==='not_played') return {ok:false,reason:'Partido marcado como no disputado · sin cargo'};
+  return {ok:true,reason:res?.status==='confirmed'?'Resultado confirmado':'Resultado pendiente o todavía no comunicado'};
 }
 function players(r){
   const b=r.reservation||{};
@@ -86,7 +87,7 @@ function render(){
           <div class="recordMeta">${esc(dateText(b.date))} · ${esc(b.time||'Hora sin indicar')} · ${esc(b.court||'Pista sin indicar')}${b.week?` · ${esc(b.week)}`:''}</div>
         </div>
         <h4 class="recordTitle">${esc(b.a||'?')} <span class="vs">vs</span> ${esc(b.b||'?')}</h4>
-        <div class="recordReason">✅ Partido disputado y resultado confirmado</div>
+        <div class="recordReason">${esc(eligibility(r).reason)} · Franja finalizada</div>
         ${ps.map(x=>`<div class="playerRow">
           <div class="playerMain">
             <div class="avatar">${esc(initials(x.name))}</div>
@@ -146,7 +147,7 @@ $('csv').onclick=()=>{
   const rows=[['Fecha','Hora','Pista','Jugador A','Pago A','Jugador B','Pago B','Estado']];
   for(const r of filtered()){
     const b=r.reservation||{};
-    rows.push([b.date||'',b.time||'',b.court||'',b.a||'',r.paymentA==='paid'?'Abonado':'Pendiente',b.b||'',r.paymentB==='paid'?'Abonado':'Pendiente','Disputado y confirmado']);
+    rows.push([b.date||'',b.time||'',b.court||'',b.a||'',r.paymentA==='paid'?'Abonado':'Pendiente',b.b||'',r.paymentB==='paid'?'Abonado':'Pendiente',eligibility(r).reason+' · franja finalizada']);
   }
   const text='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\r\n');
   const url=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'})); const a=document.createElement('a'); a.href=url; a.download='CT_Campeador_control_pistas_'+new Date().toISOString().slice(0,10)+'.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1500);
