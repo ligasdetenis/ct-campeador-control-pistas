@@ -2,231 +2,208 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0f3d33">
-  <meta name="description" content="PWA profesional para el control de cobros de pistas de la liga CT Campeador">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#103c32">
+  <meta name="description" content="Control de Pistas · Liga CT Campeador">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <title>CT Campeador · Control de Pistas</title>
   <style>
     :root{
-      --bg:#eef4f1;--surface:#ffffff;--surface-2:#f7faf8;--ink:#17322c;--muted:#60746c;--line:#dfe8e2;
-      --brand:#0f3d33;--brand-2:#185845;--accent:#b7db63;--danger:#b54335;--ok:#198655;--warn:#aa6d14;
-      --shadow:0 10px 28px rgba(18,49,39,.08);--radius:18px;--radius-sm:12px;
-      font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#eff5f1 0%,#f6faf7 100%);
+      --bg:#edf3f0;--bg-2:#f8fbf9;--surface:#ffffff;--surface-2:#f4f7f5;--line:#dce6e0;
+      --ink:#17312b;--muted:#6a7b75;--brand:#103c32;--brand-2:#15493c;--gold:#b09a3a;--lime:#b7db63;
+      --ok:#1d8b58;--warn:#ae7424;--danger:#b34035;--shadow:0 16px 36px rgba(17,51,42,.08);--r:22px;--r2:16px;
+      font:14px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink); background:linear-gradient(180deg,#eff5f2 0%,#f7faf8 100%);
     }
     *{box-sizing:border-box} html,body{margin:0} body{min-height:100dvh}
-    button,input,select{font:inherit} button{cursor:pointer} button:disabled{opacity:.55;cursor:wait}
-    .appHeader{background:linear-gradient(140deg,var(--brand) 0%,#0b2f28 55%,#154b3d 100%);color:#fff;padding:22px max(18px,calc((100vw - 1180px)/2));position:relative;overflow:hidden}
-    .appHeader:before,.appHeader:after{content:"";position:absolute;border-radius:50%;opacity:.11;background:#fff}
-    .appHeader:before{width:230px;height:230px;right:-70px;top:-80px}.appHeader:after{width:160px;height:160px;right:130px;bottom:-85px}
-    .headerRow{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:14px}.brandMark{width:58px;height:58px;border-radius:18px;background:linear-gradient(180deg,#d9f1ae,#b8dc63);display:grid;place-items:center;color:#154438;font-size:29px;box-shadow:inset 0 1px 0 rgba(255,255,255,.65)}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.11);backdrop-filter:blur(10px);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#dceade}
-    .brand h1{margin:7px 0 2px;font-size:28px;letter-spacing:-.9px;line-height:1.05}.brand p{margin:0;color:#c6ddd4}
-    .sessionBox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sessionChip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.12);color:#dceade;font-size:12px;font-weight:700}
-    .page{max-width:1180px;margin:0 auto;padding:22px 16px 110px}
-    .card,.metric,.loginCard,.record{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hidden{display:none!important}.muted{color:var(--muted)}
-    .btn{border:0;border-radius:12px;background:linear-gradient(180deg,var(--brand-2),var(--brand));color:#fff;font-weight:800;padding:11px 15px;min-height:44px;box-shadow:0 6px 16px rgba(24,88,69,.18)}
-    .btn:hover{filter:brightness(1.03)} .btn.secondary{background:#edf4f0;color:#204c40;box-shadow:none;border:1px solid #dbe7e1}.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);box-shadow:none}.btn.small{min-height:36px;padding:8px 11px;font-size:12px;border-radius:11px}
-    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.notice{padding:12px 14px;border-radius:14px;margin:0 0 16px;font-size:13px;border:1px solid #ecd9a6;background:#fff6dd;color:#805f18}.notice.error{background:#fff0ed;border-color:#efcbc4;color:#a03529}
-    .loginWrap{min-height:calc(100dvh - 160px);display:grid;place-items:center}.loginCard{width:min(100%,460px);padding:28px 26px;background:linear-gradient(180deg,#fff 0%,#f8fbf9 100%)}
-    .loginTop{display:flex;align-items:center;gap:14px;margin-bottom:10px}.loginLogo{width:58px;height:58px;border-radius:18px;background:linear-gradient(180deg,#153f35,#0e2f29);display:grid;place-items:center;color:#d7eeab;font-size:26px}
-    .loginCard h2{margin:4px 0 3px;font-size:27px;letter-spacing:-.8px}.loginCard p{margin:0 0 10px}.inputGroup{margin:16px 0 0}.label{display:block;font-size:12px;font-weight:900;color:#4d665c;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
-    .input,select{width:100%;min-height:48px;border-radius:14px;border:1px solid #c9d7cf;background:#fff;padding:12px 14px;color:var(--ink)} .input:focus,select:focus{outline:3px solid #dcefc2;border-color:#a9c57a}
-    .loginHelp{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#63776d}.safeLine{display:flex;align-items:center;gap:8px}
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-bottom:16px}
-    .heroPanel{padding:22px 22px 20px;background:linear-gradient(160deg,#ffffff 0%,#f7faf8 100%)}
-    .heroPanel h2{margin:0 0 6px;font-size:25px;letter-spacing:-.7px}.heroPanel p{margin:0;color:var(--muted)}
-    .legend{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.legend span{padding:8px 10px;border-radius:999px;background:#eef4f1;border:1px solid #dce8e1;color:#486258;font-size:12px;font-weight:700}
-    .summary{padding:18px}.summaryTitle{font-size:12px;font-weight:900;color:#567268;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
-    .summary ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.summary li{display:flex;justify-content:space-between;gap:10px;font-size:13px}.summary b{font-size:18px;letter-spacing:-.4px}
-    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
-    .metric{padding:16px;position:relative;overflow:hidden}.metric::after{content:"";position:absolute;right:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:#eef4f1}
-    .metric small{display:block;color:#677b73;font-weight:800;font-size:11px;letter-spacing:.04em;text-transform:uppercase;position:relative;z-index:1}.metric strong{display:block;margin-top:10px;font-size:30px;letter-spacing:-1px;line-height:1.05;position:relative;z-index:1}
-    .metric.pending strong{color:var(--danger)} .metric.paid strong{color:var(--ok)} .metric.excluded strong{color:#66776f}
-    .panel{padding:16px}.panelTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.panelTop h3{margin:0;font-size:21px;letter-spacing:-.5px}.panelTop p{margin:4px 0 0;color:var(--muted)}
-    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:6px;margin-bottom:10px}.tab{white-space:nowrap;padding:10px 14px;border-radius:12px;border:1px solid #d8e4dd;background:#f2f6f4;color:#395d51;font-weight:900}.tab.active{background:linear-gradient(180deg,var(--brand-2),var(--brand));color:#fff;border-color:transparent}
-    .filters{display:grid;grid-template-columns:2.15fr 1fr 1fr 1fr;gap:10px;margin:10px 0 8px}.filterBox label{display:block;font-size:11px;font-weight:900;color:#61756d;letter-spacing:.04em;text-transform:uppercase;margin:0 0 5px}
-    .subInfo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 2px 4px}.subInfo .muted{font-size:12px}.count{font-size:12px;font-weight:800;color:#5b7268}
-    .list{display:grid;gap:12px;margin-top:10px}
-    .record{padding:15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start}.recordHead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}.recordMeta{font-size:12px;color:#60756c;font-weight:700}.recordTitle{font-size:18px;line-height:1.22;font-weight:900;letter-spacing:-.4px;margin:0}.recordTitle .vs{font-weight:700;color:#80938b}
-    .recordReason{margin-top:8px;padding:9px 11px;border-radius:12px;background:#f1f6f3;border:1px solid #e1ebe5;color:#4f6b60;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
-    .playerRow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;border:1px solid #e5ece7;border-radius:14px;background:#fbfdfc;margin-top:10px}
-    .playerMain{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#e8f4c7,#d3e8a0);color:#29513f;font-weight:900;flex:0 0 auto}.playerText b{display:block;font-size:13px}.playerText span{display:block;font-size:11px;color:#6c8077}
-    .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.02em}.chip.pending{background:#fae8e4;color:#a13f32}.chip.paid{background:#e5f5e8;color:#1a764e}.chip.neutral{background:#edf1ef;color:#61766d}
-    .recordSide{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:160px}.stateBadge{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#f0f4f1;border:1px solid #dfe8e2;color:#526a60;font-size:11px;font-weight:900}.stateBadge.paid{background:#e8f5eb;color:#1b764f;border-color:#d0ead8}.stateBadge.pending{background:#fbebe7;color:#a04031;border-color:#f0d7d1}
-    .empty{padding:58px 20px;text-align:center;border:1px dashed #cfdbd4;border-radius:18px;background:#f9fbfa;color:#6a7e76}.empty h4{margin:0 0 6px;font-size:18px}.empty p{margin:0 auto;max-width:500px}
-    .footer{padding:18px;text-align:center;color:#6d8177;font-size:11px}.printOnly{display:none}
-    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(8,22,18,.62);backdrop-filter:blur(4px);padding:18px;z-index:60}.modalCard{width:min(100%,430px);padding:20px;background:#fff;border:1px solid #dde7e0;border-radius:22px;box-shadow:0 18px 45px rgba(11,35,28,.18)}.modalCard h3{margin:0 0 6px;font-size:22px;letter-spacing:-.5px}.modalCard p{margin:0 0 16px;color:#5f746b}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}.record{grid-template-columns:1fr}.recordSide{align-items:flex-start;min-width:0}.brand h1{font-size:24px}}
-    @media (max-width:620px){.page{padding:16px 12px 96px}.appHeader{padding:16px 12px}.brandMark{width:52px;height:52px;font-size:27px}.brand h1{font-size:22px}.heroPanel,.summary,.panel,.loginCard{padding:16px}.metrics{grid-template-columns:1fr 1fr;gap:10px}.metric strong{font-size:24px}.filters{grid-template-columns:1fr}.recordTitle{font-size:16px}.playerRow{padding:10px}.toolbar{width:100%}.toolbar .btn{flex:1 1 auto;justify-content:center}.sessionBox{width:100%;justify-content:space-between}}
-    @media print{@page{size:A4 portrait;margin:12mm}body{background:#fff}.appHeader,.noPrint,.modal,.loginWrap,.footer{display:none!important}.page{max-width:none;padding:0}.printOnly{display:block;margin-bottom:10px}.card,.metric,.record{box-shadow:none;border:1px solid #d8ddd9}.hero,.panel{page-break-inside:avoid}.metrics{gap:8px}.metric{padding:10px}.metric strong{font-size:20px}.record{padding:10px;gap:8px;break-inside:avoid}.playerRow{padding:7px 8px;margin-top:7px}.stateBadge,.chip{print-color-adjust:exact}}
+    button,input,select{font:inherit} button{cursor:pointer} button:disabled{opacity:.55;cursor:not-allowed}
+    .hidden{display:none!important}.muted{color:var(--muted)} .center{text-align:center}
+    .page{max-width:1200px;margin:0 auto;padding:0 16px 100px}
+    .topbar{background:linear-gradient(135deg,#0f3c32 0%,#12382f 42%,#1d5646 100%); color:#fff; position:relative; overflow:hidden}
+    .topbar:before,.topbar:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+    .topbar:before{width:240px;height:240px;top:-120px;right:-70px}.topbar:after{width:170px;height:170px;right:160px;bottom:-80px}
+    .topbarInner{max-width:1200px;margin:0 auto;padding:18px 16px 26px;position:relative;z-index:1}
+    .navLine{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .clubPill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#dfeae5}
+    .statusPill{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:700;color:#eef5f1}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:end;margin-top:18px}
+    .heroCopy h1{margin:10px 0 8px;font-size:34px;line-height:1.05;letter-spacing:-1.2px}.heroCopy p{margin:0;max-width:650px;color:#d4e1db;font-size:15px}
+    .heroBadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.heroBadges span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.13);font-size:12px;font-weight:800;color:#eef4f0}
+    .installCard{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(6px);border-radius:24px;padding:18px 18px 16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+    .installCard h3{margin:0 0 6px;font-size:20px;letter-spacing:-.5px}.installCard p{margin:0 0 12px;color:#d8e4df}
+    .installActions{display:flex;gap:10px;flex-wrap:wrap}.helpInstall{margin-top:10px;font-size:12px;color:#dbe7e2}
+    .btn{border:0;border-radius:14px;min-height:46px;padding:11px 16px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s ease;box-shadow:0 10px 20px rgba(16,60,50,.18)}
+    .btn:hover{transform:translateY(-1px)} .btn.primary{background:linear-gradient(180deg,#d0b964,#ab9131);color:#1a2d26}.btn.secondary{background:#edf4f0;color:#224d41;border:1px solid #dce7e1;box-shadow:none}.btn.ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.17);box-shadow:none}.btn.small{min-height:38px;padding:8px 12px;border-radius:12px;font-size:12px}
+    .grid{display:grid;gap:16px}.cards4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+    .loginWrap{display:grid;grid-template-columns:1fr .95fr;gap:18px;margin-top:-22px;position:relative;z-index:2}
+    .loginCard{padding:24px;background:linear-gradient(180deg,#fff 0%,#f8fbf9 100%)} .loginCard h2{margin:8px 0 6px;font-size:28px;letter-spacing:-.8px} .loginCard p{margin:0 0 14px}
+    .logoCard{padding:22px;background:linear-gradient(180deg,#fff 0%,#f9fbfa 100%);display:flex;flex-direction:column;justify-content:center}
+    .logoWrap{display:flex;justify-content:center;align-items:center;min-height:250px}.logoWrap img{max-width:min(100%,420px);height:auto;filter:drop-shadow(0 16px 24px rgba(14,49,41,.11))}
+    .eyebrow{display:inline-flex;padding:7px 11px;border-radius:999px;background:#eef4f1;color:#36584d;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .field{margin-top:14px}.label{display:block;margin:0 0 6px;color:#60736b;font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+    .input,select{width:100%;min-height:50px;border-radius:15px;border:1px solid #cbd8d1;background:#fff;padding:12px 14px;color:var(--ink)} .input:focus,select:focus{outline:3px solid #e8efcf;border-color:#c1d27d}
+    .errorBox,.infoBox{padding:12px 14px;border-radius:14px;font-size:13px}.errorBox{background:#fff0ed;border:1px solid #efcdc6;color:#a33528}.infoBox{background:#f6f9f7;border:1px solid #e1ebe5;color:#547068}
+    .miniSteps{display:grid;gap:10px;margin-top:14px}.miniSteps div{display:flex;gap:10px}.miniNum{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ebf3ef;color:#24493d;font-weight:900;flex:0 0 auto}
+    .section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;padding:20px 20px 0}.sectionHead h3{margin:0;font-size:24px;letter-spacing:-.7px}.sectionHead p{margin:5px 0 0;color:var(--muted)}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .metrics{margin-top:18px}.metric{padding:18px;position:relative;overflow:hidden}.metric:after{content:"";position:absolute;right:-20px;top:-20px;width:72px;height:72px;border-radius:50%;background:#eef4f1}.metric small{display:block;position:relative;z-index:1;color:#687b73;font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}.metric strong{display:block;position:relative;z-index:1;margin-top:10px;font-size:31px;line-height:1.05;letter-spacing:-1px}.metric.pending strong{color:var(--danger)} .metric.paid strong{color:var(--ok)} .metric.excluded strong{color:#6a7b75}
+    .panelBody{padding:18px 20px 20px}
+    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.tab{white-space:nowrap;padding:11px 14px;border-radius:13px;border:1px solid #d8e5de;background:#f1f6f3;color:#395d51;font-weight:900}.tab.active{background:linear-gradient(180deg,#184b3e,#103c32);color:#fff;border-color:transparent}
+    .filters{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:10px;margin:14px 0 10px}.filters .wide{grid-column:auto}
+    .subInfo{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 2px 2px}.count{font-size:12px;font-weight:900;color:#587067}
+    .list{display:grid;gap:14px;margin-top:12px}
+    .record{padding:16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start}.recordTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+    .recordMeta{font-size:12px;color:#657872;font-weight:800}.recordTitle{margin:4px 0 0;font-size:19px;line-height:1.24;letter-spacing:-.4px}.recordTitle .vs{color:#83948d;font-weight:700}
+    .reason{margin-top:10px;display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border-radius:999px;border:1px solid #e3ebe6;background:#f6f9f7;font-size:12px;font-weight:800;color:#516a61}
+    .players{display:grid;gap:10px;margin-top:12px}.player{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:11px 12px;border-radius:16px;border:1px solid #e3ebe6;background:#fbfdfc}
+    .pMain{display:flex;gap:10px;align-items:center;min-width:0}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#deecc0,#c6df84);color:#294f42;font-weight:900;flex:0 0 auto}
+    .pText b{display:block;font-size:14px}.pText span{display:block;font-size:11px;color:#6a7c75}.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:900}.chip.pending{background:#fae9e5;color:#a34033}.chip.paid{background:#e6f5ea;color:#1b7c51}
+    .recordAside{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:170px}.badge{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;font-size:11px;font-weight:900;border:1px solid #dce7e1;background:#f1f5f3;color:#576d64}.badge.paid{background:#e6f5ea;border-color:#d3eadb;color:#1d7b51}.badge.pending{background:#faebe7;border-color:#efd5d0;color:#a33f31}
+    .empty{padding:58px 20px;text-align:center;border:1px dashed #cfddd5;border-radius:18px;background:#fafcfb;color:#6d7f78}.empty h4{margin:0 0 6px;font-size:18px}.empty p{margin:0 auto;max-width:520px}
+    .footer{padding:20px 0 0;text-align:center;color:#71847c;font-size:11px}
+    .modal{position:fixed;inset:0;background:rgba(9,23,19,.55);display:grid;place-items:center;padding:18px;z-index:100;backdrop-filter:blur(4px)}.modalCard{width:min(100%,430px);padding:20px;background:#fff;border:1px solid #dde6e0;border-radius:22px;box-shadow:0 25px 55px rgba(11,33,28,.2)}.modalCard h3{margin:0 0 6px;font-size:22px}.modalCard p{margin:0 0 16px;color:#60736c}
+    .printOnly{display:none}
+    @media (max-width:980px){.hero,.loginWrap{grid-template-columns:1fr}.cards4{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}.record{grid-template-columns:1fr}.recordAside{align-items:flex-start;min-width:0}.heroCopy h1{font-size:30px}}
+    @media (max-width:640px){.page{padding:0 12px 90px}.topbarInner{padding:16px 12px 22px}.heroCopy h1{font-size:27px}.heroCopy p{font-size:14px}.loginCard,.logoCard{padding:18px}.sectionHead{padding:18px 18px 0}.panelBody{padding:16px 18px 18px}.cards4{grid-template-columns:1fr 1fr;gap:10px}.metric strong{font-size:25px}.filters{grid-template-columns:1fr}.toolbar{width:100%}.toolbar .btn{flex:1 1 auto}.installActions .btn{flex:1 1 auto}}
+    @media print{@page{size:A4 portrait;margin:12mm}body{background:#fff}.topbar,.loginWrap,.noPrint,.modal,.footer{display:none!important}.page{max-width:none;padding:0}.section{margin-top:0}.printOnly{display:block;margin-bottom:10px}.card,.metric,.record{box-shadow:none;border:1px solid #d8dfdb}.cards4{gap:8px}.metric{padding:10px}.metric strong{font-size:20px}.record{padding:10px;gap:8px;break-inside:avoid}}
   </style>
 </head>
 <body>
-  <header class="appHeader">
-    <div class="headerRow">
-      <div class="brand">
-        <div class="brandMark">🎾</div>
-        <div>
-          <div class="eyebrow">CT Campeador · Liga oficial</div>
-          <h1>Control de Pistas</h1>
-          <p>Panel económico de reservas con horario finalizado</p>
+  <header class="topbar">
+    <div class="topbarInner">
+      <div class="navLine">
+        <div class="clubPill">CT Campeador · Liga oficial</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div id="status" class="statusPill">Acceso restringido</div>
+          <button id="logout" class="btn ghost small hidden noPrint">Salir</button>
         </div>
       </div>
-      <div class="sessionBox">
-        <span id="status" class="sessionChip">Acceso restringido</span>
-        <button id="logout" class="btn ghost small hidden noPrint">Salir</button>
+      <div class="hero">
+        <div class="heroCopy">
+          <h1>Control de Pistas</h1>
+          <p>Aplicación independiente para gestionar el cobro individual de las reservas de la liga CT Campeador, sincronizada con la plataforma principal.</p>
+          <div class="heroBadges">
+            <span>🔒 Acceso solo con PIN</span>
+            <span>☁️ Sincronizada con Cloudflare</span>
+            <span>💳 Cobros por jugador</span>
+          </div>
+        </div>
+        <div class="installCard noPrint">
+          <h3>Instala la app</h3>
+          <p>Tenla en la pantalla de inicio como una aplicación real. La opción de instalar está siempre disponible desde aquí.</p>
+          <div class="installActions">
+            <button id="installHero" class="btn primary">📲 Instalar ahora</button>
+            <button id="howInstall" class="btn ghost">Cómo se instala</button>
+          </div>
+          <div id="installHint" class="helpInstall">Si tu navegador no muestra el instalador automático, te explicaremos cómo hacerlo manualmente.</div>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="page">
     <section id="loginPage" class="loginWrap">
-      <div class="loginCard">
-        <div class="loginTop">
-          <div class="loginLogo">💳</div>
-          <div>
-            <div class="eyebrow" style="background:#eff4f1;color:#35574b">Acceso de administración</div>
-            <h2>Entrar con PIN</h2>
-          </div>
-        </div>
-        <p class="muted">Introduce exclusivamente tu <strong>PIN de administrador</strong>. La verificación se realiza en Cloudflare y esta PWA no guarda el PIN.</p>
+      <article class="card loginCard">
+        <div class="eyebrow">Acceso de administración</div>
+        <h2>Entrar con PIN</h2>
+        <p class="muted">Introduce únicamente el <strong>PIN del administrador</strong>. Esta PWA no guarda el PIN y valida el acceso directamente con la API de CT Campeador.</p>
         <form id="loginForm">
-          <div class="inputGroup">
+          <div class="field">
             <label class="label" for="pin">PIN de administración</label>
             <input id="pin" class="input" type="password" inputmode="numeric" pattern="[0-9]{4}|[0-9]{6}" maxlength="6" autocomplete="off" placeholder="4 o 6 cifras" required>
           </div>
-          <button class="btn" id="loginBtn" type="submit" style="width:100%;margin-top:16px">Entrar en Control de Pistas</button>
+          <button id="loginBtn" class="btn primary" type="submit" style="width:100%;margin-top:16px">Entrar en la aplicación</button>
         </form>
-        <div id="loginError" class="notice error hidden" role="alert" style="margin-top:14px"></div>
-        <div class="loginHelp">
-          <span class="safeLine">🔒 Sesión segura de administrador</span>
-          <span class="safeLine">☁️ Datos compartidos con CT Campeador</span>
+        <div id="loginError" class="errorBox hidden" role="alert" style="margin-top:14px"></div>
+        <div class="miniSteps">
+          <div><span class="miniNum">1</span><div><strong>Instálala</strong><br><span class="muted">Así se comportará como una app y abrirá más rápido.</span></div></div>
+          <div><span class="miniNum">2</span><div><strong>Accede con el PIN</strong><br><span class="muted">No hace falta escribir el nombre del administrador.</span></div></div>
+          <div><span class="miniNum">3</span><div><strong>Gestiona los pagos</strong><br><span class="muted">Todo se sincroniza con la PWA principal al actualizar.</span></div></div>
         </div>
-      </div>
+      </article>
+      <article class="card logoCard">
+        <div class="eyebrow">Identidad visual</div>
+        <div class="logoWrap"><img src="icons/club-logo-control.png" alt="CT Campeador · Control de Pistas"></div>
+        <div class="infoBox">Se ha reutilizado el icono del club con <strong>nuevos colores</strong> para diferenciar esta app de la PWA principal manteniendo la identidad visual de CT Campeador.</div>
+      </article>
     </section>
 
     <section id="app" class="hidden">
-      <div id="notice" class="notice hidden" role="status"></div>
-
-      <section class="hero">
-        <div class="card heroPanel">
-          <div class="eyebrow" style="background:#edf4f0;color:#37594d">Vista profesional de cobros</div>
-          <h2>Pagos de reservas finalizadas</h2>
-          <p>Se muestran reservas con la <strong>franja horaria finalizada</strong>, aunque el resultado todavía no esté confirmado. Se excluyen pistas futuras, reservas canceladas, reprogramadas y partidos marcados como no disputados.</p>
-          <div class="legend">
-            <span>🕒 Franjas ya finalizadas</span>
-            <span>💶 Cobros por jugador</span>
-            <span>📄 Exportación CSV y A4</span>
-          </div>
-        </div>
-        <div class="card summary">
-          <div class="summaryTitle">Sesión actual</div>
-          <ul>
-            <li><span>Responsable</span><b id="welcome">—</b></li>
-            <li><span>Origen de los datos</span><strong>Cloudflare · Producción</strong></li>
-            <li><span>Actualización</span><strong id="updatedAt">Pendiente</strong></li>
-            <li><span>Instalación</span><strong>PWA independiente</strong></li>
-          </ul>
-        </div>
+      <section class="metrics grid cards4 section">
+        <article class="card metric"><small>Reservas visibles</small><strong id="nBookings">—</strong></article>
+        <article class="card metric pending"><small>Pagos pendientes</small><strong id="nPending">—</strong></article>
+        <article class="card metric paid"><small>Pagos abonados</small><strong id="nPaid">—</strong></article>
+        <article class="card metric excluded"><small>Excluidas del cobro</small><strong id="nExcluded">—</strong></article>
       </section>
 
-      <section class="metrics">
-        <article class="metric">
-          <small>Reservas cobrables</small>
-          <strong id="nBookings">—</strong>
-        </article>
-        <article class="metric pending">
-          <small>Pagos pendientes</small>
-          <strong id="nPending">—</strong>
-        </article>
-        <article class="metric paid">
-          <small>Pagos abonados</small>
-          <strong id="nPaid">—</strong>
-        </article>
-        <article class="metric excluded">
-          <small>Excluidos del cobro</small>
-          <strong id="nExcluded">—</strong>
-        </article>
-      </section>
-
-      <section class="card panel">
-        <div class="panelTop">
+      <section class="card section">
+        <div class="sectionHead">
           <div>
-            <h3>Gestión de cobros</h3>
-            <p>Vista filtrada de reservas cobrables de la liga CT Campeador.</p>
+            <div class="eyebrow">Panel económico</div>
+            <h3>Gestión profesional de cobros</h3>
+            <p>Se muestran las reservas cuya franja ya ha terminado. Se excluyen las futuras, canceladas, reprogramadas y los partidos marcados como no disputados.</p>
           </div>
           <div class="toolbar noPrint">
+            <button id="installTop" class="btn secondary small">📲 Instalar app</button>
             <button id="refresh" class="btn secondary small">↻ Actualizar</button>
-            <button id="install" class="btn secondary small">Instalar app</button>
             <button id="csv" class="btn secondary small">Exportar CSV</button>
             <button id="print" class="btn secondary small">Imprimir A4</button>
           </div>
         </div>
-
-        <div class="tabs noPrint">
-          <button class="tab active" data-tab="pending">Pendientes</button>
-          <button class="tab" data-tab="paid">Abonados</button>
-          <button class="tab" data-tab="all">Todos los cobros</button>
-        </div>
-
-        <div class="filters noPrint">
-          <div class="filterBox wide">
-            <label for="search">Buscar jugador, pista o fecha</label>
-            <input id="search" class="input" autocomplete="off" placeholder="Ejemplo: Jorge, Pista 1, noviembre...">
+        <div class="panelBody">
+          <div id="notice" class="infoBox hidden" style="margin-bottom:12px"></div>
+          <div class="tabs noPrint">
+            <button class="tab active" data-tab="pending">Pendientes</button>
+            <button class="tab" data-tab="paid">Abonados</button>
+            <button class="tab" data-tab="all">Todos</button>
           </div>
-          <div class="filterBox">
-            <label for="month">Mes</label>
-            <select id="month"><option value="all">Todos</option></select>
+          <div class="filters noPrint">
+            <div class="field wide">
+              <label class="label" for="search">Buscar jugador, pista o fecha</label>
+              <input id="search" class="input" autocomplete="off" placeholder="Ejemplo: Rubén, Pista 1, noviembre...">
+            </div>
+            <div class="field">
+              <label class="label" for="month">Mes</label>
+              <select id="month"><option value="all">Todos</option></select>
+            </div>
+            <div class="field">
+              <label class="label" for="court">Pista</label>
+              <select id="court"><option value="all">Todas</option></select>
+            </div>
+            <div class="field">
+              <label class="label" for="price">€ orientativos / jugador</label>
+              <input id="price" class="input" type="number" min="0" step="0.5" value="0">
+            </div>
           </div>
-          <div class="filterBox">
-            <label for="court">Pista</label>
-            <select id="court"><option value="all">Todas</option></select>
+          <div class="subInfo">
+            <div><strong id="listTitle">Pagos pendientes</strong><span class="muted"> · solo reservas ya terminadas</span></div>
+            <div id="total" class="count">—</div>
           </div>
-          <div class="filterBox">
-            <label for="price">€ orientativos / jugador</label>
-            <input id="price" class="input" type="number" min="0" step="0.5" value="0">
+          <div class="printOnly">
+            <h2 style="margin:0 0 4px">CT Campeador · Control de Pistas</h2>
+            <div id="printedAt" class="muted"></div>
           </div>
-        </div>
-
-        <div class="subInfo">
-          <div class="muted">
-            <strong id="listTitle">Pagos pendientes</strong> · Reservas finalizadas, aunque el resultado esté pendiente.
-          </div>
-          <div id="total" class="count">—</div>
-        </div>
-
-        <div class="printOnly">
-          <h2 style="margin:0 0 4px">CT Campeador · Control de Pistas</h2>
-          <div id="printedAt" class="muted"></div>
-        </div>
-
-        <div id="list" class="list">
-          <div class="empty">
-            <h4>Cargando datos…</h4>
-            <p>En unos segundos aparecerán aquí los partidos disputados con control de cobro.</p>
-          </div>
+          <div id="list" class="list"><div class="empty"><h4>Cargando reservas…</h4><p>En unos segundos aparecerá el listado profesional de cobros.</p></div></div>
         </div>
       </section>
     </section>
+
+    <div class="footer">CT Campeador · Control de Pistas · V1.4</div>
   </main>
 
   <div id="confirm" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modalCard">
-      <h3 id="modalTitle">Confirmar pago</h3>
+      <h3 id="modalTitle">Confirmar cambio</h3>
       <p id="modalText"></p>
       <div class="toolbar" style="justify-content:flex-end">
         <button id="cancel" class="btn secondary">Cancelar</button>
-        <button id="accept" class="btn">Confirmar</button>
+        <button id="accept" class="btn primary">Confirmar</button>
       </div>
     </div>
   </div>
 
-  <footer class="footer">CT Campeador · Control de Pistas · V1.3 · Diseño profesional</footer>
   <script src="app.js" defer></script>
 </body>
 </html>

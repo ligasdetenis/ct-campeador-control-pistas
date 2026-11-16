@@ -1,23 +1,29 @@
-CT CAMPEADOR · CONTROL DE PISTAS V1.3
-====================================
+CT CAMPEADOR · CONTROL DE PISTAS · V1.4
+=======================================
 
-CAMBIO PRINCIPAL
-- Una reserva aparece en el control de pagos cuando su franja horaria ya ha terminado,
-  AUNQUE todavía no se haya comunicado o confirmado el resultado del partido.
-- Siguen excluidas las reservas futuras, canceladas y reprogramadas, así como
-  partidos marcados expresamente como NO DISPUTADOS.
-- Las reservas cuyo resultado está pendiente muestran la etiqueta correspondiente.
-- Se mantiene la gestión compartida de cobros mediante Cloudflare.
+NOVEDADES DE ESTA VERSION
+-------------------------
+1. Diseño visual más profesional y más cercano a una app real.
+2. Uso del icono / escudo del club con nueva paleta de colores propia de Control de Pistas.
+3. Opción de instalar visible nada más entrar en la aplicación.
+4. Acceso únicamente mediante PIN de administrador.
+5. Las reservas aparecen aunque el resultado todavía no esté confirmado.
+6. No aparecen pistas futuras: solo franjas ya terminadas.
+7. Se siguen excluyendo reservas canceladas, reprogramadas y partidos marcados como no disputados.
+8. Mantiene la sincronización con la misma API / Cloudflare que la app principal.
 
-IMPORTANTE: el fin del horario de la reserva NO acredita por sí solo que se haya
-jugado. Si el partido se canceló o no llegó a disputarse, debe constar en el
-sistema para que se excluya; no se aplican penalizaciones por cancelación.
+INSTALACION
+-----------
+1. Sube TODOS los archivos del ZIP a la carpeta de tu PWA Control de Pistas en GitHub Pages.
+2. Sustituye los archivos anteriores por los nuevos.
+3. Espera a que GitHub publique la web.
+4. Si la PWA instalada conserva caché, ciérrala y vuelve a abrirla o reinstálala.
 
-INSTALACIÓN
-1. Descomprime el ZIP.
-2. Sustituye TODOS los archivos de la PWA de pagos (incluida la carpeta icons).
-3. Publica en GitHub Pages. El sw.js tiene nueva versión para renovar la caché.
-4. Comprueba en el móvil una reserva de hoy ya finalizada sin resultado confirmado,
-   una reserva futura y una cancelada.
+COMO INSTALAR LA APP
+--------------------
+- Android / Chrome: usa el botón 'Instalar ahora' o el menú del navegador > 'Instalar app'.
+- iPhone / iPad / Safari: Compartir > 'Añadir a pantalla de inicio'.
 
-NO CAMBIA Cloudflare, Worker ni la liga principal.
+NOTA
+----
+Esta PWA está pensada para trabajar como herramienta auxiliar del administrador de CT Campeador.
